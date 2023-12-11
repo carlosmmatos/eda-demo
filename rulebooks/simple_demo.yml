@@ -1,0 +1,25 @@
+---
+- name: Simple Falcon Event Stream usage example
+  hosts: all
+  sources:
+    - crowdstrike.falcon.eventstream:
+        falcon_client_id: "{{ FALCON_CLIENT_ID }}"
+        falcon_client_secret: "{{ FALCON_CLIENT_SECRET }}"
+        falcon_cloud: "us-1"
+        stream_name: "eda-example"
+        include_event_types:
+          - "DetectionSummaryEvent"
+
+  rules:
+    - name: Give me all you got
+      condition: event.falcon is defined
+      action:
+        print_event:
+          pretty: true
+          var_root: falcon
+        # debug:
+        #   msg:
+        #     - "Found detection on {{ event.falcon.event.ComputerName }}"
+        #     - "Detection Severity: {{ event.falcon.event.Severity }}"
+        #     - "Offset: {{ event.falcon.metadata.offset }}"
+        #     - "Payload: {{ event.falcon.event }}"

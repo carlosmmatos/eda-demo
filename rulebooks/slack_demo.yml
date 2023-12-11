@@ -1,0 +1,22 @@
+---
+- name: EDA Event Stream slack demo
+  hosts: all
+  sources:
+    - crowdstrike.falcon.eventstream:
+        falcon_client_id: "{{ FALCON_CLIENT_ID }}"
+        falcon_client_secret: "{{ FALCON_CLIENT_SECRET }}"
+        falcon_cloud: "us-1"
+        # offset: 12345
+        stream_name: "eda-example"
+        include_event_types:
+          - "DetectionSummaryEvent"
+
+  rules:
+    - name: Send slack notifications if severity is high|critical
+      condition: event.falcon.event.Severity > 3
+      action:
+        run_playbook:
+          name: tests/eda_slack.yml
+          extra_vars:
+            computer_name: "{{ event.falcon.event.ComputerName }}"
+            detection_description: "{{ event.falcon.event.DetectDescription }}"
