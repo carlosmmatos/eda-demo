@@ -2,7 +2,7 @@
 - name: Alert on detection events
   hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: false
   tasks:
     - name: Print offset for future tasks
       ansible.builtin.debug:
