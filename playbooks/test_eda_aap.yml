@@ -1,0 +1,21 @@
+---
+- name: Alert on detection events
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Print offset for future tasks
+      ansible.builtin.debug:
+        msg: "Offset: {{ ansible_eda.event.falcon.metadata.offset }}"
+
+    - name: Print falcon event
+      ansible.builtin.debug:
+        msg: "{{ ansible_eda.event.falcon.event | to_nice_json }}"
+
+    - name: Print computer name
+      ansible.builtin.debug:
+        msg: "{{ computer_name }}"
+
+    - name: Print detection description
+      ansible.builtin.debug:
+        msg: "{{ detection_description }}"
