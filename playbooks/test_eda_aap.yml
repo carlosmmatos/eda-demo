@@ -10,7 +10,7 @@
 
     - name: Print falcon event
       ansible.builtin.debug:
-        msg: "{{ ansible_eda.event.falcon.event | to_nice_json }}"
+        var: ansible_eda.event.falcon.event | to_nice_json
 
     - name: Print computer name
       ansible.builtin.debug:
@@ -19,3 +19,7 @@
     - name: Print detection description
       ansible.builtin.debug:
         msg: "{{ detection_description }}"
+
+    - name: Generate Authentication Credentials (access token and cloud region)
+      crowdstrike.falcon.auth:
+      register: falcon
