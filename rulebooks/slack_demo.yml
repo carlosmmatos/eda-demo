@@ -6,7 +6,7 @@
         falcon_client_id: "{{ FALCON_CLIENT_ID }}"
         falcon_client_secret: "{{ FALCON_CLIENT_SECRET }}"
         falcon_cloud: "{{ FALCON_CLOUD }}"
-        # offset: 12345
+        offset: 166317
         stream_name: "eda-example"
         include_event_types:
           - "DetectionSummaryEvent"
@@ -16,7 +16,7 @@
       condition: event.falcon.event.Severity > 3
       action:
         run_playbook:
-          name: tests/eda_slack.yml
+          name: playbooks/eda_slack.yml
           extra_vars:
             computer_name: "{{ event.falcon.event.ComputerName }}"
             detection_description: "{{ event.falcon.event.DetectDescription }}"
