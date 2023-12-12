@@ -1,0 +1,27 @@
+---
+- name: Test slack post
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    computer_name: "test"
+    detection_id: "test"
+    detection_url: "test"
+  tasks:
+    - name: Update thread with containment status
+      community.general.slack:
+        token: "{{ lookup('env', 'SLACKBOT_TOKEN') }}"
+        channel: "#stopping-breaches"
+        username: ''
+        icon_url: ''
+        color: good
+        msg: |-
+          :white_check_mark: *Host Contained* :lock:
+
+          *{{ computer_name | upper }} was successfully contained.*
+
+          *Detection ID:* {{ detection_id }}
+          *Detection URL:* {{ detection_url }}
+
+          For more information, see the detection event data in the
+          previous corresponding thread. :mag:

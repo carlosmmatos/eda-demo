@@ -57,7 +57,9 @@
         icon_url: ''
         color: good
         msg: |-
-          *{{ computer_name }} was successfully contained.*
+          :white_check_mark: *Host Contained* :lock:
+
+          *{{ computer_name | upper }} was successfully contained.*
 
           *Detection ID:* {{ detection_id }}
           *Detection URL:* {{ detection_url }}
