@@ -6,7 +6,7 @@
         falcon_client_id: "{{ FALCON_CLIENT_ID }}"
         falcon_client_secret: "{{ FALCON_CLIENT_SECRET }}"
         falcon_cloud: "{{ FALCON_CLOUD }}"
-        # offset: 12345
+        offset: "{{ OFFSET }}"
         stream_name: "eda-contain-example"
         include_event_types:
           - "DetectionSummaryEvent"
