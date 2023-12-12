@@ -7,7 +7,7 @@
         falcon_client_secret: "{{ FALCON_CLIENT_SECRET }}"
         falcon_cloud: "{{ FALCON_CLOUD }}"
         # offset: 12345
-        stream_name: "eda-example"
+        stream_name: "eda-contain-example"
         include_event_types:
           - "DetectionSummaryEvent"
 
@@ -15,11 +15,13 @@
     - name: Contain host if severity is high|critical
       condition: event.falcon.event.Severity > 3
       action:
-        run_playbook:
-          name: tests/eda_slack_contain.yml
-          extra_vars:
-            computer_name: "{{ event.falcon.event.ComputerName }}"
-            detection_description: "{{ event.falcon.event.DetectDescription }}"
-            host_id: "{{ event.falcon.event.SensorId }}"
-            detection_id: "{{ event.falcon.event.DetectId }}"
-            detection_url: "{{ event.falcon.event.FalconHostLink }}"
+        run_job_template:
+          name: eda_slack_contain
+          organization: Default
+          job_args:
+            extra_vars:
+              computer_name: "{{ event.falcon.event.ComputerName }}"
+              detection_description: "{{ event.falcon.event.DetectDescription }}"
+              host_id: "{{ event.falcon.event.SensorId }}"
+              detection_id: "{{ event.falcon.event.DetectId }}"
+              detection_url: "{{ event.falcon.event.FalconHostLink }}"
